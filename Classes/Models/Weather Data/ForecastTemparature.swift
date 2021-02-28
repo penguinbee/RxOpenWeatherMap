@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct ForecastTemparature {
-    let day: Float
-    let min: Float
-    let max: Float
-    let night: Float
-    let evening: Float
-    let morning: Float
+public struct ForecastTemparature {
+    public let day: Float
+    public let min: Float
+    public let max: Float
+    public let night: Float
+    public let evening: Float
+    public let morning: Float
     
     enum CodingKeys: String, CodingKey {
         case day
@@ -26,7 +26,7 @@ struct ForecastTemparature {
 }
 
 extension ForecastTemparature: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         day = try container.decode(Float.self, forKey: .day)
         min = try container.decode(Float.self, forKey: .min)

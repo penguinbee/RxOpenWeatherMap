@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Location {
-    let name: String
-    var localName: String?
-    var asciiName: String
-    var featureName: String
-    let latitude: Double
-    let longitude: Double
-    let country: String
-    let state: String?
+public struct Location {
+    public let name: String
+    public var localName: String?
+    public var asciiName: String
+    public var featureName: String
+    public let latitude: Double
+    public let longitude: Double
+    public let country: String
+    public let state: String?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -47,7 +47,7 @@ struct Location {
 }
 
 extension Location: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         latitude = try container.decode(Double.self, forKey: .latitude)
@@ -65,7 +65,7 @@ extension Location: Decodable {
 }
 
 extension Location: Equatable {
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.name == rhs.name &&
             lhs.latitude == rhs.latitude &&
             lhs.longitude == rhs.longitude &&

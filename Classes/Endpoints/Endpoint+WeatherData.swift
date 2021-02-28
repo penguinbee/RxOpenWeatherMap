@@ -24,29 +24,28 @@ extension WeatherDataEndpoint: Endpoint {
         return path
     }
     
-    func asURL() throws -> URL {
-        var urlComponents = URLComponents(string: weatherDataURL + path)
-        urlComponents?.queryItems = queryItems?.toURLQueryItems()
-        guard let url = urlComponents?.url else { throw EndpointError.urlConversionError }
-        return url
-    }
-    
     var queryItems: [String : Any]? {
-        var items = createBasicQueryItems()
+        let builder = QueryItemsBuillder()
+            .addItem(key: "appId", value: ClientInfo.shared.appId)
+            .addItem(key: "units", value: ClientInfo.shared.units)
+            .addItem(key: "lang", value: ClientInfo.shared.language)
         
         switch self {
         case let .oneCall(latitude, longitude, excludes):
-            items["lat"] = String(latitude)
-            items["lon"] = String(longitude)
-            items["exclude"] = excludes
-                .map { $0.rawValue }
-                .joined(separator: ",")
+            builder
+                .addItem(key: "lat", value: latitude)
+                .addItem(key: "lon", value: longitude)
+                .addItem(key: "exclude",
+                         value: excludes
+                            .map { $0.rawValue }
+                            .joined(separator: ","))
         }
-        return items
+        
+        return builder.items
     }
 }
 
-enum WeatherDataType: String {
+public enum WeatherDataType: String {
     case current
     case minutely
     case hourly

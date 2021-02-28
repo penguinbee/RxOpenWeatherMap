@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct HourlyForecast {
-    let dt: TimeInterval
-    let temparature: Float
-    let feelsLike: Float
-    let pressure: Int
-    let humidity: Int
-    let dewPoint: Float
-    let uvi: Float
-    let clouds: Int
-    let visibility: Int
-    let windSpeed: Float
-    let windDegree: Int
-    let weather: [Weather]
-    let pop: Float   // Probability of precipitation
+public struct HourlyForecast {
+    public let dt: TimeInterval
+    public let temparature: Float
+    public let feelsLike: Float
+    public let pressure: Int
+    public let humidity: Int
+    public let dewPoint: Float
+    public let uvi: Float
+    public let clouds: Int
+    public let visibility: Int
+    public let windSpeed: Float
+    public let windDegree: Int
+    public let weather: [Weather]
+    public let pop: Float   // Probability of precipitation
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -40,7 +40,7 @@ struct HourlyForecast {
 }
 
 extension HourlyForecast: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dt = try container.decode(TimeInterval.self, forKey: .dt)
         temparature = try container.decode(Float.self, forKey: .temparature)

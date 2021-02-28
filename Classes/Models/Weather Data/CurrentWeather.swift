@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct CurrentWeather {
-    let dt: TimeInterval
-    let sunrise: TimeInterval
-    let sunset: TimeInterval
-    let temparature: Float
-    let feelsLike: Float
-    let pressure: Int
-    let humidity: Int
-    let dewPoint: Float
-    let uvi: Float
-    let clouds: Int
-    let visibility: Int
-    let windSpeed: Float
-    let windDegree: Int
-    let windGust: Int?
-    let rain: Rain?
-    let snow: Snow?
-    let weather: [Weather]
+public struct CurrentWeather {
+    public let dt: TimeInterval
+    public let sunrise: TimeInterval
+    public let sunset: TimeInterval
+    public let temparature: Float
+    public let feelsLike: Float
+    public let pressure: Int
+    public let humidity: Int
+    public let dewPoint: Float
+    public let uvi: Float
+    public let clouds: Int
+    public let visibility: Int
+    public let windSpeed: Float
+    public let windDegree: Int
+    public let windGust: Int?
+    public let rain: Rain?
+    public let snow: Snow?
+    public let weather: [Weather]
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -48,7 +48,7 @@ struct CurrentWeather {
 }
 
 extension CurrentWeather: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dt = try container.decode(TimeInterval.self, forKey: .dt)
         sunrise = try container.decode(TimeInterval.self, forKey: .sunrise)

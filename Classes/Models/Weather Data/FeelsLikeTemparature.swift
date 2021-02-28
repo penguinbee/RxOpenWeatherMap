@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct FeelsLikeTemparature {
-    let day: Float
-    let night: Float
-    let evening: Float
-    let morning: Float
+public struct FeelsLikeTemparature {
+    public let day: Float
+    public let night: Float
+    public let evening: Float
+    public let morning: Float
     
     enum CodingKeys: String, CodingKey {
         case day
@@ -22,7 +22,7 @@ struct FeelsLikeTemparature {
 }
 
 extension FeelsLikeTemparature: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         day = try container.decode(Float.self, forKey: .day)
         night = try container.decode(Float.self, forKey: .night)

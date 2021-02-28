@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxAlamofire
 
 let geocodingURL = "http://api.openweathermap.org/geo/1.0/"
 
@@ -15,6 +16,7 @@ enum GeocodingEndpoint {
 }
 
 extension GeocodingEndpoint: Endpoint {
+    
     var path: String {
         var path = ""
         switch self {
@@ -24,21 +26,19 @@ extension GeocodingEndpoint: Endpoint {
         return path
     }
     
-    func asURL() throws -> URL {
-        var urlComponents = URLComponents(string: geocodingURL + path)
-        urlComponents?.queryItems = queryItems?.toURLQueryItems()
-        guard let url = urlComponents?.url else { throw EndpointError.urlConversionError }
-        return url
-    }
-    
     var queryItems: [String : Any]? {
-        var items = createBasicQueryItems()
+        let builder = QueryItemsBuillder()
+            .addItem(key: "appId", value: ClientInfo.shared.appId)
+            .addItem(key: "units", value: ClientInfo.shared.units)
+            .addItem(key: "lang", value: ClientInfo.shared.language)
         
         switch self {
         case let .directGeocoding(location, limit):
-            items["q"] = String(location)
-            items["limit"] = String(limit)
+            builder
+                .addItem(key: "q", value: location)
+                .addItem(key: "limit", value: limit)
         }
-        return items
+        
+        return builder.items
     }
 }

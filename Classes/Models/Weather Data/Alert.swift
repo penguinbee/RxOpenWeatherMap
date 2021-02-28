@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Alert {
-    let senderName: String
-    let event: String
-    let start: TimeInterval
-    let end: TimeInterval
-    let description: String
+public struct Alert {
+    public let senderName: String
+    public let event: String
+    public let start: TimeInterval
+    public let end: TimeInterval
+    public let description: String
     
     enum CodingKeys: String, CodingKey {
         case senderName = "sender_name"
@@ -24,7 +24,7 @@ struct Alert {
 }
 
 extension Alert: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         senderName = try container.decode(String.self, forKey: .senderName)
         event = try container.decode(String.self, forKey: .event)

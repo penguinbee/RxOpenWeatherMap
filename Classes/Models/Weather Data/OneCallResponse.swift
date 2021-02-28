@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct OneCallResponse {
-    let latitude: Double
-    let longitude: Double
-    let timezone: String
-    let timezoneOffset: TimeInterval
-    let current: CurrentWeather
-    let hourly: [HourlyForecast]
-    let daily: [DailyForecast]
+public struct OneCallResponse {
+    public let latitude: Double
+    public let longitude: Double
+    public let timezone: String
+    public let timezoneOffset: TimeInterval
+    public let current: CurrentWeather
+    public let hourly: [HourlyForecast]
+    public let daily: [DailyForecast]
     
     enum CodingKeys: String, CodingKey {
         case latitude = "lat"
@@ -28,7 +28,7 @@ struct OneCallResponse {
 }
 
 extension OneCallResponse: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         latitude = try container.decode(Double.self, forKey: .latitude)
         longitude = try container.decode(Double.self, forKey: .longitude)
@@ -41,7 +41,7 @@ extension OneCallResponse: Decodable {
 }
 
 extension OneCallResponse {
-    init(data: Data, using decoder: JSONDecoder = .init()) throws {
+    public init(data: Data, using decoder: JSONDecoder = .init()) throws {
         self = try decoder.decode(OneCallResponse.self, from: data)
     }
 }

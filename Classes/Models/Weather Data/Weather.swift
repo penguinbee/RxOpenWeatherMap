@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Weather {
-    let id: Int
-    let main: String
-    let description: String
-    let icon: String
+public struct Weather {
+    public let id: Int
+    public let main: String
+    public let description: String
+    public let icon: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -22,7 +22,7 @@ struct Weather {
 }
 
 extension Weather: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         main = try container.decode(String.self, forKey: .main)

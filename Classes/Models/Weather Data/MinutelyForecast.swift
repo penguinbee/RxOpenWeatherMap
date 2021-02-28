@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct MinutelyForecast {
-    let dt: TimeInterval
-    let precipitation: Int
+public struct MinutelyForecast {
+    public let dt: TimeInterval
+    public let precipitation: Int
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -18,7 +18,7 @@ struct MinutelyForecast {
 }
 
 extension MinutelyForecast: Decodable {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dt = try container.decode(TimeInterval.self, forKey: .dt)
         precipitation = try container.decode(Int.self, forKey: .precipitation)
