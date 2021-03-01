@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "RxOpenWeather"
-  spec.version      = "0.0.2"
+  spec.version      = "0.0.3"
   spec.summary      = "Basic Open Weather Map API handling response data to observable decodable objects with RxSwift"
 
   # This description is used to generate tags and improve search results.
@@ -25,8 +25,35 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-  This is a simple 3rd-party library of open weather maps APIs which includes only two APIs - One Call weather data and Direct Geocoding. It handles the response data of API calls and decode the data to objects using JSONDecoder and Decodable. A API call returns the response objects with RxSwift, that the type of response objects is Observable<ResponseObject> and you can subscribe the observable response object and bind it to an UI element.
-                   DESC
+## Installation
+Simply add RxOpenWeather into your Podfile
+```
+pod 'RxOpenWeather'
+```
+
+## Usage
+Declare a OpenWeatherClient with your api key, the specific temperature unit (.celsius, .fahrenheit, .kelvin), and the optional specific language code. Then message the client to request an API call. Currently OpenWeatherClient supports two API calls - one call to get weather data and direct geocoding to get location info. Each API call returns RxSwift.Observable<Decodable>, which you can subscribe.
+  
+```
+import RxSwift
+import RxCocoa
+import RxOpenWeather
+
+let disposeBag = DisposeBag()
+let weather = PublishSubject<OneCallResponse>()
+
+do {
+  try OpenWeatherClient(apiKey: "PUT_YOUR_API_KEY_HERE",
+                        temperatureUnit: .celsius,
+                        language: Locale.current.languageCode)
+    .oneCall(latitude: 25.234, longitude: -123.432)
+    .bind(to: weather)
+    .disposed(by: disposeBag)
+  } catch {
+    print(error.localizedDescription)
+  }
+```
+                  DESC
 
   spec.homepage     = "https://github.com/greenerchen/RxOpenWeather"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -117,7 +144,7 @@ Pod::Spec.new do |spec|
   #  the lib prefix of their name.
   #
 
-  spec.framework  = "XCTest"
+  # spec.framework  = "XCTest"
   # spec.frameworks = "SomeFramework", "AnotherFramework"
 
   # spec.library   = "iconv"
@@ -134,10 +161,8 @@ Pod::Spec.new do |spec|
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
-  spec.dependency "RxSwift"
-  spec.dependency "RxCocoa"
-  spec.dependency "RxAlamofire"
-  spec.dependency "RxBlocking"
-  spec.dependency "RxTest"
+  spec.dependency "RxSwift", "~> 6.1.0"
+  spec.dependency "RxCocoa", "~> 6.1.0"
+  spec.dependency "RxAlamofire", "~> 6.1.1"
 
 end
