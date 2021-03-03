@@ -15,7 +15,12 @@ enum WeatherDataEndpoint {
 }
 
 extension WeatherDataEndpoint: Endpoint {
-    var path: String {
+    
+    var resource: String {
+        weatherDataURL
+    }
+    
+    var endpoint: String {
         var path = ""
         switch self {
         case .oneCall(latitude: _, longitude: _, excludes: _):

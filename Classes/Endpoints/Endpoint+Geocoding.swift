@@ -17,7 +17,11 @@ enum GeocodingEndpoint {
 
 extension GeocodingEndpoint: Endpoint {
     
-    var path: String {
+    var resource: String {
+        geocodingURL
+    }
+    
+    var endpoint: String {
         var path = ""
         switch self {
         case .directGeocoding(_, _):

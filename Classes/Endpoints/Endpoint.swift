@@ -9,7 +9,8 @@ import Foundation
 import Alamofire
 
 protocol Endpoint: URLRequestConvertible, URLConvertible {
-    var path: String { get }
+    var resource: String { get }
+    var endpoint: String { get }
     var httpMethod: Alamofire.HTTPMethod { get }
     var queryItems: [String:Any]? { get }
 }
@@ -28,7 +29,7 @@ extension Endpoint {
     }
     
     public func asURL() throws -> URL {
-        var urlComponents = URLComponents(string: geocodingURL + path)
+        var urlComponents = URLComponents(string: resource + endpoint)
         urlComponents?.queryItems = queryItems?.compactMap { URLQueryItem(name: $0.key, value: "\($0.value)") }
         guard let url = urlComponents?.url else { throw EndpointError.urlConversionError }
         return url
