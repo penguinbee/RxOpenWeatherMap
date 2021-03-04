@@ -1,10 +1,10 @@
-# RxOpenWeather
+# RxOpenWeatherMap
 Basic Open Weather Map API handling response data to observable decodable objects with RxSwift and Swift 5.3
 
 ## Installation
 Simply add RxOpenWeather into your Podfile
 ```
-pod 'RxOpenWeather'
+pod 'RxOpenWeatherMap'
 ```
 
 ## Usage
@@ -23,7 +23,9 @@ do {
                         temperatureUnit: .celsius,
                         language: Locale.current.languageCode)
     .oneCall(latitude: 25.234, longitude: -123.432)
-    .bind(to: weather)
+    .subscribe(onNext: { [weak self] (oneCallResponse) in 
+      self?.weather.onNext(oneCallResponse)
+    })
     .disposed(by: disposeBag)
   } catch {
     print(error.localizedDescription)
