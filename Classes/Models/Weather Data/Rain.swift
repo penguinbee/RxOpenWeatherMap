@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Rain {
-    public let last1h: Int
-    public let last3h: Int?
+    public let last1h: Float
+    public let last3h: Float?
     
     enum CodingKeys: String, CodingKey {
         case last1h = "1h"
@@ -20,7 +20,7 @@ public struct Rain {
 extension Rain: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        last1h = try container.decode(Int.self, forKey: .last1h)
-        last3h = try container.decodeIfPresent(Int.self, forKey: .last3h) 
+        last1h = try container.decode(Float.self, forKey: .last1h)
+        last3h = try container.decodeIfPresent(Float.self, forKey: .last3h) 
     }
 }
