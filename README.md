@@ -2,7 +2,7 @@
 Basic Open Weather Map API handling response data to observable decodable objects with RxSwift and Swift 5.3
 
 ## Installation
-Simply add RxOpenWeather into your Podfile
+Simply add RxOpenWeatherMap into your Podfile
 ```
 pod 'RxOpenWeatherMap'
 ```
@@ -13,7 +13,7 @@ Declare a OpenWeatherClient with your api key, the specific temperature unit (.c
 ```
 import RxSwift
 import RxCocoa
-import RxOpenWeather
+import RxOpenWeatherMap
 
 let disposeBag = DisposeBag()
 let weather = PublishSubject<OneCallResponse>()
