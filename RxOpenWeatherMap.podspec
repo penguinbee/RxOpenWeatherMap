@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint RxOpenWeather.podspec' to ensure this is a
+#  Be sure to run `pod spec lint RxOpenWeatherMap.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
@@ -15,8 +15,8 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "RxOpenWeatherMap"
-  spec.version      = "0.0.5"
+  spec.name         = "RxOpenWeatherMapMap"
+  spec.version      = "0.0.6"
   spec.summary      = "Basic Open Weather Map API handling response data to observable decodable objects with RxSwift"
 
   # This description is used to generate tags and improve search results.
@@ -26,9 +26,9 @@ Pod::Spec.new do |spec|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
 ## Installation
-Simply add RxOpenWeather into your Podfile
+Simply add RxOpenWeatherMap into your Podfile
 ```
-pod 'RxOpenWeather'
+pod 'RxOpenWeatherMap'
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ Declare a OpenWeatherClient with your api key, the specific temperature unit (.c
 ```
 import RxSwift
 import RxCocoa
-import RxOpenWeather
+import RxOpenWeatherMap
 
 let disposeBag = DisposeBag()
 let weather = PublishSubject<OneCallResponse>()
@@ -55,7 +55,7 @@ do {
 ```
                   DESC
 
-  spec.homepage     = "https://github.com/greenerchen/RxOpenWeather"
+  spec.homepage     = "https://github.com/greenerchen/RxOpenWeatherMap"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -107,7 +107,7 @@ do {
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/greenerchen/RxOpenWeather.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/greenerchen/RxOpenWeatherMap.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
