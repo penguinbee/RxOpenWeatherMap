@@ -15,8 +15,8 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "RxOpenWeatherMapMap"
-  spec.version      = "0.0.6"
+  spec.name         = "RxOpenWeatherMap"
+  spec.version      = "0.0.7"
   spec.summary      = "Basic Open Weather Map API handling response data to observable decodable objects with RxSwift"
 
   # This description is used to generate tags and improve search results.
