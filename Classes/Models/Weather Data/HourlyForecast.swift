@@ -21,6 +21,8 @@ public struct HourlyForecast {
     public let windDegree: Int
     public let weather: [Weather]
     public let pop: Float   // Probability of precipitation
+    public let rain: Rain?
+    public let snow: Snow?
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -36,6 +38,8 @@ public struct HourlyForecast {
         case windDegree = "wind_deg"
         case weather
         case pop
+        case rain
+        case snow
     }
 }
 
@@ -55,5 +59,7 @@ extension HourlyForecast: Decodable {
         windDegree = try container.decode(Int.self, forKey: .windDegree)
         weather = try container.decode([Weather].self, forKey: .weather)
         pop = try container.decode(Float.self, forKey: .pop)
+        rain = try container.decodeIfPresent(Rain.self, forKey: .rain)
+        snow = try container.decodeIfPresent(Snow.self, forKey: .snow)
     }
 }

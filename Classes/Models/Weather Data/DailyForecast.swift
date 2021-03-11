@@ -22,6 +22,8 @@ public struct DailyForecast {
     public let humidity: Int
     public let dewPoint: Float
     public let uvi: Float
+    public let rain: Rain?
+    public let snow: Snow?
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -38,6 +40,8 @@ public struct DailyForecast {
         case humidity
         case dewPoint = "dew_point"
         case uvi
+        case rain
+        case snow
     }
 }
 
@@ -58,6 +62,7 @@ extension DailyForecast: Decodable {
         humidity = try container.decode(Int.self, forKey: .humidity)
         dewPoint = try container.decode(Float.self, forKey: .dewPoint)
         uvi = try container.decode(Float.self, forKey: .uvi)
-        
+        rain = try container.decodeIfPresent(Rain.self, forKey: .rain)
+        snow = try container.decodeIfPresent(Snow.self, forKey: .snow)
     }
 }
