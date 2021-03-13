@@ -8,7 +8,7 @@
 import RxSwift
 import RxAlamofire
 
-extension OpenWeatherClient {
+extension OpenWeatherMapClient {
 
     public func oneCall(latitude: Double, longitude: Double, excludes: [WeatherDataType] = [.minutely, .alerts]) throws -> Observable<OneCallResponse> {
         let endpoint = WeatherDataEndpoint.oneCall(latitude: latitude, longitude: longitude, excludes: excludes)

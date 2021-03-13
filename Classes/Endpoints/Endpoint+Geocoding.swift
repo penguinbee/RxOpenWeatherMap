@@ -13,6 +13,8 @@ let geocodingURL = "http://api.openweathermap.org/geo/1.0/"
 enum GeocodingEndpoint {
     /// get geo coordinates by location name
     case directGeocoding(location: String, limit: Int = 10)
+    /// get location name by geo coordinates
+    case reverseGeocoding(latitude: Double, longitude: Double, limit: Int = 5)
 }
 
 extension GeocodingEndpoint: Endpoint {
@@ -26,6 +28,8 @@ extension GeocodingEndpoint: Endpoint {
         switch self {
         case .directGeocoding(_, _):
             path = "direct"
+        case .reverseGeocoding(_, _, _):
+            path = "reverse"
         }
         return path
     }
@@ -40,6 +44,11 @@ extension GeocodingEndpoint: Endpoint {
         case let .directGeocoding(location, limit):
             builder
                 .addItem(key: "q", value: location)
+                .addItem(key: "limit", value: limit)
+        case let .reverseGeocoding(latitude, longitude, limit):
+            builder
+                .addItem(key: "lat", value: latitude)
+                .addItem(key: "lon", value: longitude)
                 .addItem(key: "limit", value: limit)
         }
         

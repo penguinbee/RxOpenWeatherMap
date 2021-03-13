@@ -1,5 +1,5 @@
 //
-//  APIManager.swift
+//  OpenWeatherMapClient.swift
 //  WeatherApp-MVVMC
 //
 //  Created by Greener Chen on 2021/2/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class OpenWeatherClient {
+open class OpenWeatherMapClient {
     
     let clientInfo: ClientInfo = ClientInfo.shared
     
