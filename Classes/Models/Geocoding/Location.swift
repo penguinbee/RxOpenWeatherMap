@@ -10,8 +10,8 @@ import Foundation
 public struct Location {
     public let name: String
     public var localName: String?
-    public var asciiName: String
-    public var featureName: String
+    public var asciiName: String?
+    public var featureName: String?
     public let latitude: Double
     public let longitude: Double
     public let country: String
@@ -35,7 +35,7 @@ public struct Location {
             case "feature_name":
                 self.stringValue = "feature_name"
             default:
-                return nil
+                self.stringValue = stringValue
             }
         }
         
@@ -55,12 +55,14 @@ extension Location: Decodable {
         country = try container.decode(String.self, forKey: .country)
         state = try container.decodeIfPresent(String.self, forKey: .state)
         
-        let localNamesContainer = try container.nestedContainer(keyedBy: LocalNamesCodingKeys.self, forKey: .localNames)
-        asciiName = try localNamesContainer.decode(String.self, forKey: LocalNamesCodingKeys(stringValue: "ascii")!)
-        featureName = try localNamesContainer.decode(String.self, forKey: LocalNamesCodingKeys(stringValue: "feature_name")!)
-        
-        guard let langCode = Locale.current.languageCode?.lowercased() else { return }
-        localName = try localNamesContainer.decodeIfPresent(String.self, forKey: LocalNamesCodingKeys(stringValue: langCode)!)
+        if container.contains(.localNames) {
+            let localNamesContainer = try container.nestedContainer(keyedBy: LocalNamesCodingKeys.self, forKey: .localNames)
+            asciiName = try localNamesContainer.decode(String.self, forKey: LocalNamesCodingKeys(stringValue: "ascii")!)
+            featureName = try localNamesContainer.decode(String.self, forKey: LocalNamesCodingKeys(stringValue: "feature_name")!)
+            
+            guard let langCode = Locale.current.languageCode?.lowercased() else { return }
+            localName = try localNamesContainer.decodeIfPresent(String.self, forKey: LocalNamesCodingKeys(stringValue: langCode)!)
+        }
     }
 }
 
