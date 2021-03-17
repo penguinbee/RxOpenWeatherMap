@@ -25,7 +25,7 @@ class APIClientsTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testDirectGeocoding_new() throws {
+    func testDirectGeocoding_expectNoLocalNames() throws {
         let result = try client.geoCoordinates(ofLocationName: "New")
             .toBlocking()
             .materialize()
@@ -40,6 +40,24 @@ class APIClientsTests: XCTestCase {
             XCTAssertEqual(cities[0].name, "New", "Incorrect city \(cities[0])")
         case .failed(_, let error):
             XCTFail("\(error)")
+        }
+    }
+    
+    func testDirectGeocoding_expectNotFound() throws {
+        let result = try client.geoCoordinates(ofLocationName: "")
+            .toBlocking()
+            .materialize()
+            
+        switch result {
+        case .completed(_):
+            XCTFail("Expect to get an error of nothing to geocode")
+        case .failed(_, let error):
+            guard let err = error as? OWMError else {
+                XCTFail(error.localizedDescription)
+                return
+            }
+            XCTAssertEqual(err.code, "400")
+            XCTAssertEqual(err.message, "Nothing to geocode")
         }
     }
     
