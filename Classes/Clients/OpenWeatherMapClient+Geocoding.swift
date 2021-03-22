@@ -14,7 +14,7 @@ extension OpenWeatherMapClient {
         let endpoint = GeocodingEndpoint.directGeocoding(location: name, limit: limit)
         return requestData(endpoint)
             .map({ (response, data) -> [Location] in
-                guard response.statusCode >= 200 && response.statusCode < 400 else {
+                guard 200..<300 ~= response.statusCode else {
                     throw try OWMError(data: data)
                 }
                 return try JSONDecoder().decode([Location].self, from: data)
@@ -25,7 +25,7 @@ extension OpenWeatherMapClient {
         let endpoint = GeocodingEndpoint.reverseGeocoding(latitude: latitude, longitude: longitude, limit: limit)
         return requestData(endpoint)
             .map({ (response, data) -> [Location] in
-                guard response.statusCode >= 200 && response.statusCode < 400 else {
+                guard 200..<300 ~= response.statusCode else {
                     throw try OWMError(data: data)
                 }
                 return try JSONDecoder().decode([Location].self, from: data)

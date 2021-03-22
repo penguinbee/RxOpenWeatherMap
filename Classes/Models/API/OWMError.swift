@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OWMError: Error {
+public struct OWMError: Error, Codable {
     public let code: String
     public let message: String
     
@@ -16,14 +16,6 @@ public struct OWMError: Error {
         case message
     }
     
-}
-
-extension OWMError: Decodable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        code = try container.decode(String.self, forKey: .code)
-        message = try container.decode(String.self, forKey: .message)
-    }
 }
 
 extension OWMError {

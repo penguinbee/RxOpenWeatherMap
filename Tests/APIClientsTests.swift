@@ -16,7 +16,7 @@ class APIClientsTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        client = OpenWeatherMapClient(apiKey: "", // PUT YOUR TOKEN HERE
+        client = OpenWeatherMapClient(apiKey: "2427d1e57235ff12495e90895f51fd36", // PUT YOUR TOKEN HERE
                                        temperatureUnit: .celsius,
                                        language: "en")
     }
@@ -130,6 +130,25 @@ class APIClientsTests: XCTestCase {
             }
             XCTAssertEqual(weatherData.latitude, 55.7512, "Incorrect latitude")
             XCTAssertEqual(weatherData.longitude, 37.6184, "Incorrect longitude")
+        case .failed(_, let error):
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testWeatherOneCall_Wind() throws {
+        // Tokyo
+        let result = try client.oneCall(latitude: 35.652832, longitude: 139.839478, excludes: [])
+            .toBlocking()
+            .materialize()
+        
+        switch result {
+        case .completed(let elements):
+            guard let weatherData = elements.first else {
+                XCTFail("Incorrect result - \(elements)")
+                return
+            }
+            XCTAssertEqual(weatherData.latitude, 35.6528, "Incorrect latitude")
+            XCTAssertEqual(weatherData.longitude, 139.8395, "Incorrect longitude")
         case .failed(_, let error):
             XCTFail("\(error)")
         }

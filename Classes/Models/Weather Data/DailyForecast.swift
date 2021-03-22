@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DailyForecast {
+public struct DailyForecast: Codable {
     public let dt: TimeInterval
     public let weather: [Weather]
     public let clouds: Int
@@ -42,27 +42,5 @@ public struct DailyForecast {
         case uvi
         case rain
         case snow
-    }
-}
-
-extension DailyForecast: Decodable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        dt = try container.decode(TimeInterval.self, forKey: .dt)
-        weather = try container.decode([Weather].self, forKey: .weather)
-        clouds = try container.decode(Int.self, forKey: .clouds)
-        windSpeed = try container.decode(Float.self, forKey: .windSpeed)
-        windDegree = try container.decode(Float.self, forKey: .windDegree)
-        pop = try container.decode(Float.self, forKey: .pop)
-        sunrise = try container.decode(TimeInterval.self, forKey: .sunrise)
-        sunset = try container.decode(TimeInterval.self, forKey: .sunset)
-        temperature = try container.decode(ForecastTemparature.self, forKey: .temperature)
-        feelsLike = try container.decode(FeelsLikeTemparature.self, forKey: .feelsLike)
-        pressure = try container.decode(Float.self, forKey: .pressure)
-        humidity = try container.decode(Int.self, forKey: .humidity)
-        dewPoint = try container.decode(Float.self, forKey: .dewPoint)
-        uvi = try container.decode(Float.self, forKey: .uvi)
-        rain = try container.decodeIfPresent(Float.self, forKey: .rain)
-        snow = try container.decodeIfPresent(Float.self, forKey: .snow)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OneCallResponse {
+public struct OneCallResponse: Codable {
     public let latitude: Double
     public let longitude: Double
     public let timezone: String
@@ -24,19 +24,6 @@ public struct OneCallResponse {
         case current
         case hourly
         case daily
-    }
-}
-
-extension OneCallResponse: Decodable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        latitude = try container.decode(Double.self, forKey: .latitude)
-        longitude = try container.decode(Double.self, forKey: .longitude)
-        timezone = try container.decode(String.self, forKey: .timezone)
-        timezoneOffset = try container.decode(TimeInterval.self, forKey: .timezoneOffset)
-        current = try container.decode(CurrentWeather.self, forKey: .current)
-        hourly = try container.decode([HourlyForecast].self, forKey: .hourly)
-        daily = try container.decode([DailyForecast].self, forKey: .daily)
     }
 }
 

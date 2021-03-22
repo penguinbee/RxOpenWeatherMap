@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Alert {
+public struct Alert: Codable {
     public let senderName: String
     public let event: String
     public let start: TimeInterval
@@ -20,16 +20,5 @@ public struct Alert {
         case start
         case end
         case description
-    }
-}
-
-extension Alert: Decodable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        senderName = try container.decode(String.self, forKey: .senderName)
-        event = try container.decode(String.self, forKey: .event)
-        start = try container.decode(TimeInterval.self, forKey: .start)
-        end = try container.decode(TimeInterval.self, forKey: .end)
-        description = try container.decode(String.self, forKey: .description)
     }
 }

@@ -12,6 +12,12 @@ extension OpenWeatherMapClient {
 
     public func oneCall(latitude: Double, longitude: Double, excludes: [WeatherDataType] = [.minutely, .alerts]) throws -> Observable<OneCallResponse> {
         let endpoint = WeatherDataEndpoint.oneCall(latitude: latitude, longitude: longitude, excludes: excludes)
-        return try decodable(endpoint.httpMethod, endpoint.asURL())
+        return requestData(endpoint)
+            .map({ (response, data) -> OneCallResponse in
+                guard 200..<300 ~= response.statusCode else {
+                    throw try OWMError(data: data)
+                }
+                return try JSONDecoder().decode(OneCallResponse.self, from: data)
+            })
     }
 }

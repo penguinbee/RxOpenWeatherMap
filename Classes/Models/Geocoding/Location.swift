@@ -46,6 +46,28 @@ public struct Location {
     }
 }
 
+extension Location: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(latitude, forKey: .latitude)
+        try container.encode(longitude, forKey: .longitude)
+        try container.encode(country, forKey: .country)
+        try container.encode(state, forKey: .state)
+        
+        var localNamesContainer = container.nestedContainer(keyedBy: LocalNamesCodingKeys.self, forKey: .localNames)
+        if let asciiName = asciiName {
+            try localNamesContainer.encode(asciiName, forKey: LocalNamesCodingKeys(stringValue: "ascii")!)
+        }
+        if let featureName = featureName {
+            try localNamesContainer.encode(featureName, forKey: LocalNamesCodingKeys(stringValue: "feature_name")!)
+        }
+        guard let langCode = Locale.current.languageCode?.lowercased() else { return }
+        guard let localName = localName else { return }
+        try localNamesContainer.encode(localName, forKey: LocalNamesCodingKeys(stringValue: langCode)!)
+    }
+}
+
 extension Location: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

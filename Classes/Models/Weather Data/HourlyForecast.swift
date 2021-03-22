@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct HourlyForecast {
+public struct HourlyForecast: Codable {
     public let dt: TimeInterval
     public let temparature: Float
     public let feelsLike: Float
@@ -40,26 +40,5 @@ public struct HourlyForecast {
         case pop
         case rain
         case snow
-    }
-}
-
-extension HourlyForecast: Decodable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        dt = try container.decode(TimeInterval.self, forKey: .dt)
-        temparature = try container.decode(Float.self, forKey: .temparature)
-        feelsLike = try container.decode(Float.self, forKey: .feelsLike)
-        pressure = try container.decode(Int.self, forKey: .pressure)
-        humidity = try container.decode(Int.self, forKey: .humidity)
-        dewPoint = try container.decode(Float.self, forKey: .dewPoint)
-        uvi = try container.decode(Float.self, forKey: .uvi)
-        clouds = try container.decode(Int.self, forKey: .clouds)
-        visibility = try container.decode(Int.self, forKey: .visibility)
-        windSpeed = try container.decode(Float.self, forKey: .windSpeed)
-        windDegree = try container.decode(Int.self, forKey: .windDegree)
-        weather = try container.decode([Weather].self, forKey: .weather)
-        pop = try container.decode(Float.self, forKey: .pop)
-        rain = try container.decodeIfPresent(Rain.self, forKey: .rain)
-        snow = try container.decodeIfPresent(Snow.self, forKey: .snow)
     }
 }
