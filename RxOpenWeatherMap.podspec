@@ -161,8 +161,8 @@ do {
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
-  spec.dependency "RxSwift", "~> 6.1.0"
-  spec.dependency "RxCocoa", "~> 6.1.0"
-  spec.dependency "RxAlamofire", "~> 6.1.1"
+  spec.dependency "RxSwift", "~> 5.1"
+  spec.dependency "RxCocoa", "~> 5.0"
+  spec.dependency "RxAlamofire", "~> 5.0"
 
 end
