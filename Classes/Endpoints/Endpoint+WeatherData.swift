@@ -7,7 +7,7 @@
 
 import Foundation
 
-let weatherDataURL = "http://api.openweathermap.org/data/2.5/"
+let weatherDataURL = "https://api.openweathermap.org/data/2.5/"
 
 enum WeatherDataEndpoint {
     /// get current weather, hourly and daily forecast
