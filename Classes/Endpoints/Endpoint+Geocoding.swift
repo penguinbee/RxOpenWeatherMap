@@ -8,7 +8,7 @@
 import Foundation
 import RxAlamofire
 
-let geocodingURL = "http://api.openweathermap.org/geo/1.0/"
+let geocodingURL = "https://api.openweathermap.org/geo/1.0/"
 
 enum GeocodingEndpoint {
     /// get geo coordinates by location name
